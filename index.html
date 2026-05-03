@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Anushree</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --pink: #ffafcc; --blue: #a2d2ff; --dark-blue: #4a90e2; }
+        
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            margin: 0; padding: 0; min-height: 100vh;
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            display: flex; justify-content: center; align-items: center;
+            overflow-x: hidden; text-align: center;
+        }
+
+        .container {
+            width: 90%; max-width: 400px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 20px; border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .section { display: none; }
+        .active { display: block; animation: zoomIn 0.5s ease; }
+
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        h1 { font-family: 'Dancing Script', cursive; color: #d63031; font-size: 2.3rem; margin: 10px 0; }
+        
+        .bear-placeholder {
+            font-size: 80px; margin-bottom: 10px; display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        .btn-main {
+            background: linear-gradient(45deg, var(--pink), var(--blue));
+            color: white; border: none; padding: 15px 40px;
+            border-radius: 50px; font-weight: 700; cursor: pointer;
+            width: 80%; margin-top: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .loader-wrap { width: 100%; height: 12px; background: #eee; border-radius: 10px; margin: 20px 0; overflow: hidden; }
+        .loader-fill { height: 100%; width: 0%; background: var(--pink); transition: width 0.1s linear; }
+
+        .note {
+            background: white; border: 2px solid var(--blue);
+            margin: 10px 0; padding: 15px; border-radius: 15px; cursor: pointer;
+        }
+        .note.read { background: #fff0f3; border-color: var(--pink); }
+        .msg { display: none; margin-top: 10px; color: #555; font-style: italic; font-size: 0.9rem; }
+
+        .letter {
+            background: #fff; padding: 20px; border-radius: 15px;
+            border: 2px dashed var(--pink); text-align: left; margin-top: 20px; line-height: 1.6;
+        }
+
+        #music-box { position: absolute; left: -999px; top: -999px; }
+    </style>
+</head>
+<body>
+
+    <div id="music-box"></div>
+
+    <div class="container">
+        <!-- Section 1 -->
+        <div id="s1" class="section active">
+            <div class="bear-placeholder">🧸</div>
+            <h1>Hey Anushree cutiepie</h1>
+            <p>Do u even know how cute you are?</p>
+            <button class="btn-main" onclick="step2()">check</button>
+        </div>
+
+        <!-- Section 2: Loading -->
+        <div id="s2" class="section">
+            <p style="font-weight: bold; color: var(--dark-blue);">Measuring your cuteness......⏳</p>
+            <div id="num" style="font-size: 3rem; font-weight: 700; color: var(--pink);">0%</div>
+            <div class="loader-wrap"><div class="loader-fill" id="fill"></div></div>
+            <div id="warn" style="display:none">
+                <h3 style="color: #ff4d4d;">Warning: too cute to handle</h3>
+                <button class="btn-main" onclick="showSection('s3')">Continue</button>
+            </div>
+        </div>
+
+        <!-- Section 3: Notes -->
+        <div id="s3" class="section">
+            <div style="font-size: 60px; margin-bottom: 10px;">💖</div>
+            <p>Tap each one to reveal</p>
+            <div class="note" onclick="read(this)">click Cutieee ❤️ <div class="msg">I messed up... and i'm really sorry for that...</div></div>
+            <div class="note" onclick="read(this)">click Cutieee ❤️ <div class="msg">I promise i won't leave you</div></div>
+            <div class="note" onclick="read(this)">click Cutieee ❤️ <div class="msg">Please forgive me.... you are very valuable to me</div></div>
+            <button id="next" class="btn-main" style="display:none" onclick="showSection('s4')">see more</button>
+        </div>
+
+        <!-- Section 4: Final -->
+        <div id="s4" class="section">
+            <p>a little note for uhh</p>
+            <div style="font-size: 50px; margin: 15px 0;">✉️</div>
+            <button class="btn-main" style="width: 70px; height: 70px; border-radius: 50%; padding:0;" onclick="reveal()">💖🌻</button>
+            
+            <div id="final" style="display:none">
+                <div style="font-size: 60px; margin-top: 20px;">🐻🌸</div>
+                <div class="letter">
+                    <p>I'm really sorry, my love. I upset the most precious and adorable person in my life --- You 🤗</p>
+                    <p>Please forgive me my <b>PUCHUu😘💖</b> i won't leave you in this life or any other life. I promise.</p>
+                    <h2 style="color: var(--pink); text-align: center;">I love you</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        function step2() {
+            // Music Trigger
+            document.getElementById('music-box').innerHTML = `<iframe width="1" height="1" src="https://www.youtube.com/embed/0n18ON2FoEY?autoplay=1" frameborder="0" allow="autoplay"></iframe>`;
+            
+            showSection('s2');
+            let p = 0;
+            let itv = setInterval(() => {
+                p += 20;
+                document.getElementById('num').innerText = p + "%";
+                document.getElementById('fill').style.width = (p/10) + "%";
+                if(p >= 1000) {
+                    clearInterval(itv);
+                    document.getElementById('warn').style.display = 'block';
+                }
+            }, 30);
+        }
+
+        let count = 0;
+        function read(el) {
+            if(!el.classList.contains('read')) {
+                el.classList.add('read');
+                el.querySelector('.msg').style.display = 'block';
+                count++;
+                if(count === 3) document.getElementById('next').style.display = 'inline-block';
+            }
+        }
+
+        function reveal() {
+            document.getElementById('final').style.display = 'block';
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
